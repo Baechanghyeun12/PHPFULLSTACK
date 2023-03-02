@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px 20px;
+        }
+
+        td:last-child {
+            width: 200px;
+        }
+
+        /* table{
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            border: 1px solid black;
+        } */
+
+        /* .col1 {
+            background-color: yellow;
+        }
+
+        .col2 {
+            background-color: green;
+        } */
+        </style>
+</head>
+<!-- <caption>Tag는 표의 제목(주제)을 나타낸다 -->
+<!-- <tr>Tag는 행(row)을 나타낸다 -->
+<!-- <th>Tag는 표의 제목행을 나타낼때 쓴다(text가 굵어진다) -->
+<!-- <td>Tag는 표의 데이터를 적을때 쓴다 -->
+<body>
+    <table>
+        <caption>반 성적</caption>
+        <tr>
+            <th>1반</th>
+            <td>80점</td>
+            <td>90점</td>
+        </tr>
+        <tr>
+            <th>2반</th>
+            <td>90점</td>
+            <td>80점</td>
+        </tr>
+    </table>
+    <br>
+    <table>
+        <caption>반 성적</caption>
+        <thead>
+        <tr>
+            <th>1반</th>
+            <th>2반</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>80점</td>
+            <td>90점</td>
+        </tr>
+        <tr>
+            <td>90점</td>
+            <td>80점</td>
+        </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+            <td>foot</td>
+            <td>foot2</td>
+            </tr>
+        </tfoot>
+    </table>
+    
+    <table>
+        <caption>학급 성적표</caption>
+        <!-- <colgroup>
+        <col class="col1">
+        <col class="col2">
+        <col>
+        <col>
+        <col>
+        <col>
+        </colgroup> -->
+        <tr>
+            <th>반</th>
+            <th>이름</th>
+            <th>국어</th>
+            <th>영어</th>
+            <th>수학</th>
+            <th>과학</th>
+        </tr>
+        <tr>
+            <td rowspan="2">1반</td>
+            <td>홍길동</td>
+            <td>100</td>
+            <td>80</td>
+            <td>90</td>
+            <td>90</td>
+        </tr>
+        <tr>
+            <td>김철수</td>
+            <td>80</td>
+            <td>100</td>
+            <td>90</td>
+            <td>80</td>
+        </tr>
+        <tr>
+            <td colspan="2">평균</td>
+            <td>80.5</td>
+            <td>80.5</td>
+            <td>90.5</td>
+            <td>75.5</td>
+        </tr>
+    </table>
+
+    <!-- 실습 -->
+    <h1>수습 궁원 지원 양식</h1>
+    <table>
+        <tr>
+            <th rowspan="3">개인정보</th>
+            <th>이름</th>
+            <td></td>
+        </tr>
+        <tr>
+            <th>학과/학번</th>
+            <td></td>
+        </tr>
+        <tr>       
+            <th>연락처</th>
+            <td></td>
+        </tr>
+        <tr>
+            <th>지원 분야</th>
+            <td colspan="2"></td>
+        </tr>
+</table>
+</body>
+</html>

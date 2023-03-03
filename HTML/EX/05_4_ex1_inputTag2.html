@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="">
+        <label for="textbox">메모</label>
+        <textarea name="memo" id="textbox" cols="30" rows="10"></textarea>
+        <br>
+        <br>
+        <br>
+        <select name="select" id="select" multiple size="5">
+            <option value="0" selected>탕수육</option>
+            <option value="1">짜장면</option>
+            <option value="2">짬뽕</option>
+            <option value="7">밥</option>
+            <option value="3">육회비빔밥</option>
+            <option value="4">해물짬뽕</option>
+            <option value="5">햄버거</option>
+            <option value="6">커피</option>
+        </select>
+        <br>
+        <br>
+        <br>
+        <label for="cook">요리</label>
+        <input type="text" id="cook" list="datalist">
+        <datalist name="datalist" id="datalist">
+            <option value="0">밥</option>
+            <option value="1">돈까스</option>
+            <option value="2">물</option>
+        </datalist>
+        <br>
+        <br>
+        <br>
+        <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
+        <button type="button">Button</button>
+        
+    </form>
+</body>
+</html>

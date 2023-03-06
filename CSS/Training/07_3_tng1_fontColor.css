@@ -1,0 +1,30 @@
+h1 {
+    color: rgb(165, 42, 42);
+    display: inline-block;
+}
+h2 {
+    color: blue;
+    display: inline-block;
+}
+li {
+    color: green;
+}
+.div_2 > ol {
+    display: inline-block;
+}
+h1,
+h2,
+ol {
+    border: 3px solid orange;
+}
+table,
+td,
+th {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 10px;
+}

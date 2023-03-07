@@ -1,0 +1,38 @@
+.con1,
+.con2,
+.con3 {
+    width: 500px;
+    border: 1px dotted #000000;
+    margin: 10px auto;
+    padding: 25px;
+}
+.con1 {
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+.con3 {
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+ul {
+    list-style-type: decimal;
+}
+span {
+    font-weight: 900;
+}
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th,
+td {
+    padding: 5px 15px;
+}
+.front {
+    background-color: rgb(233, 233, 233);
+}
+.con3 {
+    border-left-style: solid;
+}

@@ -1,0 +1,12 @@
+body {
+    background-image: url(../Example/images/mic.jpg);
+    background-size: cover;
+    margin: 0;
+}
+.con1 {
+    width: 100vw;
+    padding: 20px 20px;
+    height: 170px;
+    background-color: gray;
+    color: white;
+}

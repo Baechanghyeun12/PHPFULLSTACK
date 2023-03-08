@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            /* html {
+                background-image: url("./images/mic.jpg");
+            } */
+            /* .div_img {
+                background-image: url("./images/mic.jpg"),
+                    url("./images/mic.jpg"), url("./images/mic.jpg");
+                width: 500px;
+                height: 500px;
+            }
+            .div_repeat {
+                border: 1px solid black;
+                background-image: url("./images/mic.jpg");
+                width: 2000px;
+                height: 2000px;
+                background-repeat: repeat-x;
+            } */
+            /* .div_position {
+                border: 1px solid black;
+                width: 2000px;
+                height: 1600px;
+                background-image: url(./images/mic.jpg);
+                background-repeat: no-repeat;
+                background-position: bottom 100px right 100px;
+                background-size: cover;
+            } */
+            .at_img {
+                background-image: url(./images/mic.jpg);
+                width: 150px;
+                height: 200px;
+                display: inline-block;
+                border: 1px solid black;
+                overflow: scroll;
+                background-size: 80%;
+            }
+            .div_img_scroll {
+                background-attachment: scroll;
+            }
+            .div_img_fixed {
+                background-attachment: fixed;
+            }
+            .div_img_local {
+                background-attachment: local;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- <h1>background-image</h1>
+        <div class="div_img"></div>
+
+        <h1>background-repeat</h1>
+        <div class="div_repeat"></div> -->
+
+        <!-- <h1>background-repeat</h1>
+        <div class="div_position"></div> -->
+        <div style="height: 2000px"></div>
+        <div class="div_img_scroll at_img">
+            김규식(金奎植, 1881년 2월 28일 ~ 1950년 12월 10일)은 대한제국의
+            종교가, 교육자이자 대한민국의 독립 운동가, 통일운동가, 정치가, 시인,
+            교육자이다. 언더우드 목사의 비서, 경신학교의 교수와 학감 등을 지내고
+            미국에 유학하였다
+        </div>
+        <div class="div_img_fixed at_img">
+            김규식(金奎植, 1881년 2월 28일 ~ 1950년 12월 10일)은 대한제국의
+            종교가, 교육자이자 대한민국의 독립 운동가, 통일운동가, 정치가, 시인,
+            교육자이다. 언더우드 목사의 비서, 경신학교의 교수와 학감 등을 지내고
+            미국에 유학하였다
+        </div>
+        <div class="div_img_local at_img">
+            김규식(金奎植, 1881년 2월 28일 ~ 1950년 12월 10일)은 대한제국의
+            종교가, 교육자이자 대한민국의 독립 운동가, 통일운동가, 정치가, 시인,
+            교육자이다. 언더우드 목사의 비서, 경신학교의 교수와 학감 등을 지내고
+            미국에 유학하였다
+        </div>
+        <div style="height: 3000px"></div>
+    </body>
+</html>

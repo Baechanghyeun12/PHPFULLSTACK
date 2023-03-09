@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="./실습예제_1.css" />
+    </head>
+    <body>
+        <form action="">
+            <fieldset>
+                <legend>I want YOU!</legend>
+                <label class="st" for="name">이름</label>
+                <input type="text" id="name" required />
+                <br />
+                <br />
+                <label class="st" for="age">나이</label>
+                <input type="number" id="age" min="20" required />
+                <br />
+                <br />
+                <label class="st" for="">성별</label>
+                <input type="radio" id="m" name="mg" required />
+                <label for="m" class="mm">남자</label>
+                <input type="radio" id="g" name="mg" />
+                <label for="g" class="gg">여자</label>
+                <br />
+                <br />
+                <label for="ta" class="la4">요청 사항</label>
+                <textarea
+                    name=""
+                    id="ta"
+                    cols="30"
+                    rows="10"
+                    placeholder="요청 사항 입력"
+                ></textarea>
+                <br />
+                <br />
+                <button type="submit" value="보내기" id="but">보내기</button>
+                <span>내용을 다시 한 번 확인해 주세요.</span>
+            </fieldset>
+        </form>
+    </body>
+</html>

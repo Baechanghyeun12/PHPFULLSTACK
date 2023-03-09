@@ -1,0 +1,77 @@
+fieldset {
+    width: 450px;
+    margin: 10px auto;
+    background-image: url(../Example/images/mic.jpg);
+    background-size: cover;
+}
+#name,
+#age,
+#ta {
+    border-width: 3px;
+}
+.la4 {
+    position: relative;
+    bottom: 140px;
+}
+legend {
+    font-size: xx-large;
+    font-weight: 900;
+    color: rgb(255, 46, 116);
+}
+label {
+    font-weight: 900;
+}
+span {
+    color: white;
+    background-color: black;
+    padding: 4px;
+    display: none;
+}
+label.st::before {
+    content: "*";
+    color: red;
+}
+input,
+textarea {
+    background-color: rgb(00, 00, 00, 00);
+}
+
+#name:hover {
+    background-color: rgba(151, 151, 255, 0.5);
+    outline: none;
+    border: 3px solid red;
+}
+#age:hover {
+    background-color: rgba(151, 151, 255, 0.5);
+    outline: none;
+    border: 3px solid red;
+}
+#ta:hover {
+    background-color: rgba(151, 151, 255, 0.5);
+    outline: none;
+    border: 3px solid red;
+}
+#but:hover + span {
+    display: inline-block;
+}
+#name:focus {
+    background-color: rgba(151, 151, 255, 0.5);
+    outline: none;
+    border: 3px solid red;
+}
+#age:focus {
+    background-color: rgba(151, 151, 255, 0.5);
+    outline: none;
+    border: 3px solid red;
+}
+#ta:focus {
+    background-color: rgba(151, 151, 255, 0.5);
+    outline: none;
+    border: 3px solid red;
+}
+#m:focus + .mm {
+    color: red;
+}
+#g:focus + .gg {
+    color: red;
+}

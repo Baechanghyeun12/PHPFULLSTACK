@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.con_1 {
+    width: 80vw;
+    height: 82vh;
+    border: 1px solid black;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.con_2 {
+    margin: 0 auto;
+    width: 77vw;
+    height: 39vh;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.con_2 div {
+    padding: 5px;
+    margin: 0 auto;
+    width: 75vw;
+    height: 8vh;
+    border: 1px solid black;
+}

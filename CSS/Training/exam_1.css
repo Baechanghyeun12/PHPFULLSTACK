@@ -1,0 +1,163 @@
+/* body {
+    margin: 0px;
+}
+h1 {
+    color: white;
+    font-size: 10vw;
+    margin: 0;
+}
+ul {
+    list-style: none;
+    display: grid;
+    grid-gap: 1rem;
+}
+li {
+    border: 1px solid gray;
+    border-radius: 30px;
+}
+figure {
+    position: relative;
+}
+img {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    border-radius: 30px;
+}
+h3 {
+    position: absolute;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    margin: 0;
+    color: white;
+    padding: 10px;
+    font-size: 1.1em;
+    box-sizing: border-box;
+}
+.hero p {
+    color: white;
+}
+a {
+    text-decoration: none;
+    color: white;
+    background-color: goldenrod;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    position: relative;
+}
+.hero {
+}
+footer {
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    background-color: black;
+    width: 100%;
+    height: 100px;
+    color: white;
+}
+li > p {
+    margin: 10px;
+} */
+body {
+    margin: 0;
+}
+.hero {
+    height: auto;
+    position: relative;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+h1,
+h3,
+article > p {
+    color: white;
+}
+a {
+    text-decoration: none;
+    color: white;
+    background-color: goldenrod;
+    padding: 25px;
+    border-radius: 15px;
+}
+h1 {
+    font-size: 90px;
+    text-align: center;
+    margin: 0 20px;
+    /* position: absolute;
+    top: 35px;
+    left: 75px; */
+}
+h3 {
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    bottom: 0px;
+    margin: 0;
+    width: 30vw;
+    height: 7vh;
+    font-size: 2vh;
+    line-height: 7vh;
+    padding: 10px;
+    box-sizing: border-box;
+}
+article > p {
+    /* position: absolute;
+    bottom: 200px; */
+    font-size: 30px;
+    padding: 0;
+    margin: 20px;
+}
+article {
+    align-self: center;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+article > a {
+    margin: 20px;
+    /* position: absolute;
+    bottom: 90px;
+    left: 60px; */
+}
+ul {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+    flex-wrap: wrap;
+}
+li {
+    border-radius: 10px;
+    border: 1px solid black;
+    width: 40vw;
+}
+img {
+    width: 30vw;
+    height: 30vh;
+    border-radius: 10px;
+}
+figure {
+    position: relative;
+}
+li {
+    margin: 10px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+p {
+    margin: 0 20px;
+}
+li > a {
+    align-self: flex-start;
+    margin: 10px;
+}
+footer {
+    position: fixed;
+    bottom: 0px;
+}

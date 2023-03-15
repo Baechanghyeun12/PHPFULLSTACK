@@ -28,5 +28,5 @@ WHERE salary BETWEEN 60000 AND 80000;
 
 SELECT emp_no
 FROM dept_manager
-WHERE dept_no IN('d006','d009');
+WHERE dept_no IN('d006','d009');    
 

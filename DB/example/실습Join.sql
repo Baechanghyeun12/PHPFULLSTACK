@@ -25,7 +25,9 @@ FROM employees emp
 	INNER JOIN dept_emp demp
 		ON emp.emp_no = demp.emp_no
 	INNER JOIN departments dpart
-		ON demp.dept_no = dpart.dept_no;
+		ON demp.dept_no = dpart.dept_no
+	WHERE demp.to_date>=NOW()
+	ORDER BY emp.emp_no;
 
 -- 5. 현재 월급의 상위 10위까지 사원의 사번, 풀네임, 월급을 출력해 주세요.
 SELECT emp.emp_no,CONCAT(emp.first_name,emp.last_name) fullname, sal.salary

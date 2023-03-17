@@ -45,12 +45,29 @@ FROM employees emp
 		ON emp.emp_no = sal.emp_no
 WHERE sal.to_date>=NOW() LIMIT 10;
 
+-- 5-2
+SELECT *
+FROM (
+		SELECT emp.emp_no
+				,CONCAT(emp.first_name, ' ', emp.last_name) fullname
+				,sal.salary
+				,RANK() over(ORDER BY sal.salary DESC) rn
+		FROM employees emp
+			INNER JOIN salaries sal
+				ON emp.emp_no = sal.emp_no
+		WHERE sal.to_date >= NOW()
+	) RNK
+WHERE RNK.rn <= 10;
+
+
 -- 6. 각 부서의 부서장의 부서명, 풀네임, 입사일을 출력해 주세요.
-SELECT dm1.from_date,concAT(emp.first_name,emp.last_name) fullname,dpart.dept_name
+SELECT emp.hire_date
+		,concAT(emp.first_name, ' ',emp.last_name) fullname
+		,dpart.dept_name,dm1.dept_no
 FROM employees emp
 	INNER JOIN dept_manager dm1
 		ON emp.emp_no = dm1.emp_no
-	INNER JOIN departments dpart
+	INNER join departments dpart
 		ON dm1.dept_no = dpart.dept_no
 WHERE dm1.to_date >= NOW();
 
@@ -59,29 +76,49 @@ SELECT AVG(sal.salary)
 FROM titles tit
 	INNER JOIN salaries sal
 		ON tit.emp_no = sal.emp_no
-WHERE tit.title = 'Staff' AND sal.to_date >= NOW();
+WHERE tit.title = 'Staff' 
+AND sal.to_date >= NOW() 
+AND tit.to_date >= NOW();
 
 -- 8. 부서장직을 역임했던 모든 사원의 풀네임과 입사일, 사번, 부서번호를 출력해 주세요.
-SELECT CONCAT(emp.first_name,emp.last_name) '풀네임',emp.emp_no,dm.dept_no,emp.hire_date
+SELECT CONCAT(emp.first_name,emp.last_name) '풀네임'
+		,emp.emp_no
+		,dm.dept_no
+		,emp.hire_date
 FROM employees emp
 	INNER JOIN dept_manager dm
-		ON emp.emp_no = dm.emp_no;
+		ON emp.emp_no = dm.emp_no
+WHERE dm.to_date != '99990101';
 
 -- 9. 현재 각 직급별 평균월급 중 60000이상인 직급의 직급명, 평균월급(정수)를 출력해 주세요.
-SELECT tit.title,truncate(AVG(sal.salary),0) AS tavg
+SELECT tit.title,truncate(AVG(sal.salary),0) tavg
 FROM titles tit
 	INNER JOIN salaries sal
 		ON tit.emp_no = sal.emp_no
-WHERE sal.to_date>=NOW() AND tit.to_date>=NOW()
+WHERE sal.to_date>=NOW()
+AND tit.to_date>=NOW()
 GROUP BY tit.title HAVING tavg >=60000
 ORDER BY tavg DESC;
 
+
+SELECT tit.title
+		,truncate(AVG(sal.salary),0) tavg
+FROM titles tit
+	INNER JOIN salaries sal
+		ON tit.emp_no = sal.emp_no
+WHERE sal.to_date = DATE(99990101)
+AND tit.to_date = DATE(99990101)
+GROUP BY tit.title HAVING tavg >=60000
+ORDER BY tavg DESC;
+
+
 -- 10. 성별이 여자인 사원들의 직급별 사원수를 출력해 주세요.
-SELECT tit.title,COUNT(title),emp.gender
+SELECT tit.title,COUNT(tit.title),emp.gender
 FROM employees emp
 	INNER JOIN titles tit
 		ON emp.emp_no = tit.emp_no
 WHERE emp.gender = 'F'
+AND tit.to_date = DATE(99990101)
 GROUP BY tit.title;
 
 -- 11. 

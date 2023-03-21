@@ -47,11 +47,11 @@
 CREATE TABLE 테이블명(
 	컬럼 타입(크기) NOT NULL --널값이 들어갈 수 없음
 	,컬럼 타입 DEFAULT(값) --초기값 지정
-	,CONSTRAIN PK명 PRIMARY KEY(컬럼) --PK설정
-	,CONSTRAIN FK명 FOREIGN KEY(컬럼)
-		REFERENCE 참조테이블(참조컬럼) [ON DELETE 동작 / ON UPDATE 동작]  -- FK설정
-	,CONSTRAIN UNIQUE명 UNIQUE (컬럼) -- UNIQUE설정
-	,CONSTRAIN CHECK명 CHECK (조건) -- CHECK설정
+	,CONSTRAINt PK명 PRIMARY KEY(컬럼) --PK설정
+	,CONSTRAINt FK명 FOREIGN KEY(컬럼)
+		REFERENCEs 참조테이블(참조컬럼) [ON DELETE 동작 / ON UPDATE 동작]  -- FK설정
+	,CONSTRAINt UNIQUE명 UNIQUE (컬럼) -- UNIQUE설정
+	,CONSTRAINt CHECK명 CHECK (조건) -- CHECK설정
 );
 
 

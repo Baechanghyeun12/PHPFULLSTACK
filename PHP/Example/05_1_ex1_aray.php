@@ -49,7 +49,7 @@
 
 
 
-    // 다차워 배열
+    // 다차원 배열
 //     $arr_temp = array(
 //                     array(1, 2, 3, 4)
 //                     ,array(5, 6, 7, 8)
@@ -179,13 +179,23 @@ foreach($arr_ass_del as $key => $val)
     if($key === "삭제")
     {
         unset($arr_ass_del[$key]);
+        // echo $arr_ass_del[$key];
     }
     else{
         echo $key." : ". $val."\n";
     }
 }
 
+print_r($arr_ass_del);
+
 var_dump($arr_ass_del);
+
+
+
+
+
+
+
 
 
 

@@ -55,10 +55,21 @@ function rcc( $param_a)
 echo rcc(4);
 
 
+// return 함수 (리턴값이 있는)
 
+function sum2($n1, $n2)
+{
+    return $n1 + $n2;
+}
+echo sum2(5,6);
 
+// void 함수 (리턴값이 없는)
+function sum($n1, $n2)
+{
+    echo $n1 + $n2;
+}
 
-
+sum( 1, 2 );
 
 
 

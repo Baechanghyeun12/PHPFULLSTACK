@@ -61,4 +61,4 @@ function star_tri($d)
 
 
 
-star_rect(6);
+star_tri(4);

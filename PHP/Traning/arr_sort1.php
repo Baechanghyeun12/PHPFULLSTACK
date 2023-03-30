@@ -58,7 +58,7 @@
 
 // 배열 안에 최대 값, 최소 값을 출력해주는 함수를 각각 구현해 주세요.
 // 함수명은 "my_max", "my_min"
-$arr = array(55,5, 10, 7, 3, 1);
+$arr = array(55,5, 10,80, 7, 3, 1);
 
 function print_max($a)
 {
@@ -72,5 +72,6 @@ function print_max($a)
     }
     return $max;
 }
+
 echo print_max($arr);
 ?>

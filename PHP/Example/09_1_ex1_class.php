@@ -53,7 +53,32 @@ $obj_student = new Student;  // Class를 변수에 담아준다.
 // $obj_student -> $std_age = 24; : 상속된 Class안에서만 사용할 수 있어서 밖에서 사용하면 오류가생김
 
 // getter, setter로 private 객체에 접근
-$obj_student->set_std_id("갑순이id");
-echo $obj_student->get_std_id();
+// $obj_student->set_std_id("갑순이id");
+// echo $obj_student->get_std_id();
 
 
+
+
+
+
+////////////////////////////////////
+// 생성자(constructor)
+
+class food
+{
+    private $food_name;
+
+    // 생성자 = __construct : 7.4버전 이상부터 사용한다. 그전버전에는 없이 생성자를 만든다.
+    public function __construct($parama_food_name)
+    {
+        $this->food_name = $parama_food_name;
+    }
+
+    public function print_food_name()
+    {
+        echo $this->food_name;
+    }
+}
+
+$obj_food = new food( "탕수육" );
+$obj_food->print_food_name();

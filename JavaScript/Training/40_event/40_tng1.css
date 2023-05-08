@@ -1,0 +1,13 @@
+
+.div1{
+    position: absolute;
+    bottom: 30%;
+    right: 30%;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    translate: -50%, -50%;
+}
+.clicked{
+    background-color: beige;
+}

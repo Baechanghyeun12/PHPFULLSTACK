@@ -21,7 +21,16 @@ class Model{
         }
     }
     // DB Connect
-    protected function closeConn(){
+    public function closeConn(){
         $this->conn = null;
+    }
+    public function openConnBegin(){
+        $this->conn->begintransaction();
+    }
+    public function commitConn(){
+        $this->conn->commit();
+    }
+    public function rollBackConn(){
+        $this->conn->rollback();
     }
 }

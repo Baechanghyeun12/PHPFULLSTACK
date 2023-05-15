@@ -15,6 +15,10 @@
         <label for="pw">PW</label>
         <input type="text" name="pw" id="pw">
         <button type="submit">Login</button>
+        <button type="button" onclick="location.href='/movie/main'">취소</button>
     </form>
+    <a href="/user/signup">회원가입</a>
+    <a href="">아이디 찾기</a>
+    <a href="">비밀번호 찾기</a>
 </body>
 </html>

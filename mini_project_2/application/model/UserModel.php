@@ -3,17 +3,27 @@
 namespace application\model;
 
 class UserModel extends Model{
-    public function getUser($arrUserInfo){
-        $sql = " SELECT * FROM user_info WHERE u_id = :id AND u_pw = :pw ";
+    public function getUser($arrUserInfo, $pwFlg = true){
+        $sql = " SELECT * FROM user_info WHERE u_id = :u_id ";
+
+        // PW 추가할 경우
+        if($pwFlg){
+            $sql.=" AND u_pw = :u_pw ";
+        }
+        
         $prepare = [
-            ":id" => $arrUserInfo["id"]
-            ,":pw"=> $arrUserInfo["pw"]
+            ":u_id" => $arrUserInfo["u_id"]
         ];
+
+        // PW 추가할 경우
+        if($pwFlg){
+            $prepare[":u_pw"] = $arrUserInfo["u_pw"];
+        }
+
         try {
             $stmt = $this->conn->prepare($sql);
             $stmt->execute($prepare);
             $result = $stmt->fetchAll();
-
         } catch (Exception $e) {
             echo "UserModel->getUser Error : ".$e->getMessage();
             exit();
@@ -28,15 +38,18 @@ class UserModel extends Model{
         $sql = " INSERT INTO user_info ("
                 ." u_id "
                 ." ,u_pw "
+                ." ,u_email "
                 .")"
                 ." VALUES ("
                 ." :u_id "
                 ." ,:u_pw "
+                ." ,:u_email "
                 ." ) "
                 ;
         $prepare = [
             ":u_id" => $arrUserInfo["u_id"]
             ,":u_pw" => $arrUserInfo["u_pw"]
+            ,":u_email" => $arrUserInfo["u_email"]
         ];
         try {
             // $this->conn->begintransaction();
@@ -46,33 +59,28 @@ class UserModel extends Model{
             return $result;
             // $this->conn->commit();
         } catch (Exception $e) {
-            echo "UserModel->getUser Error : ".$e->getMessage();
-            // $this->conn->rollback();
-            exit();
+            return false;
         }
         // finally{
         //     $this->closeConn();
         // }
     }
-    function id_search(&$param){
+    public function idSearch($param){
         $sql = " SELECT "
-                ." login_id "
-                ." FROM login "
+                ." u_id "
+                ." FROM user_info "
                 ." WHERE "
-                ." login_email = :login_email "
+                ." u_email = :u_email "
                 ;
     
                 $arr_prepare =
                 array(
-                    ":login_email"  => $param["login_email"]
+                    ":u_email"  => $param["u_email"]
                 );
-    
-            $conn = null;
     
             try
             {
-                db_conn( $conn );
-                $stmt = $conn->prepare( $sql );
+                $stmt = $this->conn->prepare( $sql );
                 $stmt->execute( $arr_prepare );
                 $result = $stmt->fetchAll();
             }
@@ -80,35 +88,33 @@ class UserModel extends Model{
             {
                 return $e->getMessage();
             }
-            finally
-            {
-                $conn = null;
+            if(empty($result)){
+                return "";
             }
-            return $result;
+            else{
+                return $result[0];
+            }
     }
 
-    function pw_search(&$param){
+    public function pwSearch($param){
         $sql = " SELECT "
-                ." login_password "
-                ." FROM login "
+                ." u_pw "
+                ." FROM user_info "
                 ." WHERE "
-                ." login_email = :login_email "
+                ." u_email = :u_email "
                 ." AND "
-                ." login_id = :login_id "
+                ." u_id = :u_id "
                 ;
     
                 $arr_prepare =
                 array(
-                    ":login_email" => $param["login_email"]
-                    ,":login_id" => $param["login_id"]
+                    ":u_email" => $param["u_email"]
+                    ,":u_id" => $param["u_id"]
                 );
-    
-            $conn = null;
     
             try
             {
-                db_conn( $conn );
-                $stmt = $conn->prepare( $sql );
+                $stmt = $this->conn->prepare( $sql );
                 $stmt->execute( $arr_prepare );
                 $result = $stmt->fetchAll();
             }
@@ -116,10 +122,68 @@ class UserModel extends Model{
             {
                 return $e->getMessage();
             }
-            finally
-            {
-                $conn = null;
+            if(empty($result)){
+                return "";
             }
-            return $result;
+            else{
+                return $result[0];
+            }
+    }
+
+    public function correctionUserInfo($arrUserInfo){
+        $sql = " UPDATE user_info "
+                ." SET u_id = :u_id, u_email = :u_email "
+                ." WHERE u_no = :u_no "
+                ;
+        
+                $prepare = [
+                    ":u_id" => $arrUserInfo["u_id"]
+                    ,":u_email" => $arrUserInfo["u_email"]
+                    ,":u_no" => $arrUserInfo["u_no"]
+                ];
+                try {
+                    // $this->conn->begintransaction();
+                    $stmt = $this->conn->prepare($sql);
+                    $stmt->execute($prepare);
+                    $result = $stmt->rowcount();
+                    return $result;
+                    // $this->conn->commit();
+                } catch (Exception $e) {
+                    return false;
+                }
+                // finally{
+                //     $this->closeConn();
+                // }
+    }
+
+    public function getUserID($arrUserInfo, $pwFlg = true){
+        $sql = " SELECT * FROM user_info WHERE u_no = :u_no ";
+
+        // PW 추가할 경우
+        if($pwFlg){
+            $sql.=" AND u_pw = :u_pw ";
+        }
+        
+        $prepare = [
+            ":u_no" => $arrUserInfo["u_no"]
+        ];
+
+        // PW 추가할 경우
+        if($pwFlg){
+            $prepare[":u_pw"] = $arrUserInfo["u_pw"];
+        }
+
+        try {
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute($prepare);
+            $result = $stmt->fetchAll();
+        } catch (Exception $e) {
+            echo "UserModel->getUser Error : ".$e->getMessage();
+            exit();
+        }
+        // finally{
+        //     $this->closeConn();
+        // }
+        return $result;
     }
 }

@@ -34,9 +34,8 @@
         </div>
         <div>
             <?php
-            if(isset($_SESSION["u_id"])){
-                echo "안녕하세요".$_SESSION["u_id"]."님";
-                ?>
+            if(isset($_SESSION["u_id"])){?>
+                <a href="/user/myPage"><?php echo "안녕하세요".$_SESSION["u_id"]."님";?></a>
                 <button id="logout" onclick="redirectLogout();">Logout</button>
                 <?php
             }

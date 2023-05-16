@@ -2,7 +2,7 @@
 namespace application\controller;
 
 class ProductController extends Controller {
-    public function listGet() {
-        return "list"._EXTENSION_PHP;
+    public function myPageGet() {
+        return "login"._EXTENSION_PHP;
     }
 }

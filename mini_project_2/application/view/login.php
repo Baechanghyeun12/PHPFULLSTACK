@@ -17,6 +17,16 @@
         <button type="submit">Login</button>
         <button type="button" onclick="location.href='/movie/main'">취소</button>
     </form>
+    <?php
+    if(isset($this->signUpFlg)){
+    ?>
+        <script>
+            alert('로그인 하세요~.');
+            location.href = '/user/login';
+        </script>
+    <?php
+        }
+    ?>
     <a href="/user/signup">회원가입</a>
     <a href="/user/idSearch">아이디 찾기</a>
     <a href="/user/pwSearch">비밀번호 찾기</a>

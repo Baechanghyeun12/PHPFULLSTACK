@@ -132,13 +132,12 @@ class UserModel extends Model{
 
     public function correctionUserInfo($arrUserInfo){
         $sql = " UPDATE user_info "
-                ." SET u_id = :u_id, u_email = :u_email "
+                ." SET  u_email = :u_email "
                 ." WHERE u_no = :u_no "
                 ;
         
                 $prepare = [
-                    ":u_id" => $arrUserInfo["u_id"]
-                    ,":u_email" => $arrUserInfo["u_email"]
+                    ":u_email" => $arrUserInfo["u_email"]
                     ,":u_no" => $arrUserInfo["u_no"]
                 ];
                 try {
@@ -185,5 +184,31 @@ class UserModel extends Model{
         //     $this->closeConn();
         // }
         return $result;
+    }
+
+
+    public function correctionUserPw($arrUserInfo){
+        $sql = " UPDATE user_info "
+                ." SET  u_pw = :u_pw "
+                ." WHERE u_id = :u_id "
+                ;
+        
+                $prepare = [
+                    ":u_pw" => $arrUserInfo["u_pwc"]
+                    ,":u_id" => $arrUserInfo["u_id"]
+                ];
+                try {
+                    // $this->conn->begintransaction();
+                    $stmt = $this->conn->prepare($sql);
+                    $stmt->execute($prepare);
+                    $result = $stmt->rowcount();
+                    return $result;
+                    // $this->conn->commit();
+                } catch (Exception $e) {
+                    return false;
+                }
+                // finally{
+                //     $this->closeConn();
+                // }
     }
 }

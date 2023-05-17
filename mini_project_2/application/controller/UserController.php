@@ -42,7 +42,11 @@ class UserController extends Controller {
             $arrChkErr["u_id"] = "ID는 12글자 이하로 입력해 주세요.";
         }
         // ID 영문숫자 체크 (이거는 한번 해보세요.)
-
+        $patten = "/[^a-zA-Z0-9]/";
+        if(preg_match($patten, $arrPost["u_id"]) !==0){
+            $arrChkErr["u_id"] = "ID는 영어 대문자, 영어 소문자, 숫자로만 입력해 주세요.";
+            $arrPost["u_id"] = "";
+        }
         
         // PW 글자수 체크
         if(mb_strlen($arrPost["u_pw"]) < 8 || mb_strlen($arrPost["u_pw"]) > 20){
@@ -86,10 +90,11 @@ class UserController extends Controller {
             exit();
         }
         $this->model->commitConn();
+        $this->addDynamicProperty("signUpFlg", true);
         $this->model->closeConn();
         
         
-        return _BASE_REDIRECT."/user/login";
+        return "signup"._EXTENSION_PHP;
         // **********Teransaction End**********
 
         // $this->model->openconnbegin();
@@ -148,7 +153,8 @@ class UserController extends Controller {
         $this->addDynamicProperty("u_info", $result[0]);
         return "myPage"._EXTENSION_PHP;
         }else{
-            return header(_BASE_REDIRECT."/user/login");
+            $this->addDynamicProperty("signUpFlg", true);
+            return "login"._EXTENSION_PHP;
         }
     }
 
@@ -167,7 +173,8 @@ class UserController extends Controller {
             $this->addDynamicProperty("u_info", $result[0]);
             return "correction"._EXTENSION_PHP;
             }else{
-                return header(_BASE_REDIRECT."/user/login");
+                $this->addDynamicProperty("signUpFlg", true);
+                return "login"._EXTENSION_PHP;
             }
     }
 
@@ -177,8 +184,8 @@ class UserController extends Controller {
         $arrChkErr = [];
         // 유효성체크(영문자랑 숫자도 체크해야된다.)
         // ID 글자수 체크
-        if(mb_strlen($arrPost["u_id"]) > 12 || mb_strlen($arrPost["u_id"]) === 0){
-            $arrChkErr["u_id"] = "ID는 12글자 이하로 입력해 주세요.";
+        if(mb_strlen($arrPost["u_id"]) > 12 || mb_strlen($arrPost["u_id"]) < 6){
+            $arrChkErr["u_id"] = "ID는 6글자 이상 12글자 이하로 입력해 주세요.";
         }
         // ID 영문숫자 체크 (이거는 한번 해보세요.)
         
@@ -191,39 +198,98 @@ class UserController extends Controller {
         if(!empty($arrChkErr)){
             // 에러메세지 셋팅
             $this->addDynamicProperty("arrChkErr", $arrChkErr);
+            $this->addDynamicProperty("u_info1", $arrPost);
             return "correction"._EXTENSION_PHP;
         }
         
-        $result = $this->model->getUser($arrPost,false);
-        if(count($result) !== 0){
-            $errMsg = "입력하신 ID가 사용중입니다.";
-            $this->addDynamicProperty("errMsg", $errMsg);
+        // $result = $this->model->getUser($arrPost,false);
+        // if(count($result) !== 0){
+        //     $errMsg = "입력하신 ID가 사용중입니다.";
+        //     $this->addDynamicProperty("errMsg", $errMsg);
             // 회원가입페이지 페이지
-            return "correction"._EXTENSION_PHP;
-        }
-
-
-
-        $result1 = $this->model->getUserID($arrPost["u_no"],false);
-        var_dump($result1);
-        if($result1[0]["u_id"] === $arrPost["u_id"] && $result1[0]["u_email"] === $arrPost["u_email"] ){
+            // return _BASE_REDIRECT."/user/correction";
+        // }
+        $result1 = $this->model->getUserID($arrPost,false);
+        if( ($result1[0]["u_email"] === $arrPost["u_email"]) ){
             $errMsg = "변경 사항이 없습니다.";
             $this->addDynamicProperty("errMsg2", $errMsg);
-            // return "correction"._EXTENSION_PHP;
-        }
+            $this->addDynamicProperty("u_info1", $arrPost);
+            return "correction"._EXTENSION_PHP;
+        }else {
         // **********Teransaction start**********
-        
+            $this->model->openConnBegin();
+
+            if(!$this->model->correctionUserInfo($arrPost)){
+                $this->model->rollBackConn();
+                echo "User correction ERROR";
+                exit();
+            }
+            $this->model->commitConn();
+            $this->model->closeConn();
+            $this->addDynamicProperty("u_info", $arrPost);
+            return "myPage"._EXTENSION_PHP;
+        }
+    }
+
+    public function pwCorrectionGet(){
+        if(isset($_SESSION["u_id"])){
+            $arr = ["u_id" => $_SESSION["u_id"] ];
+            $result = $this->model->getUser($arr,false);
+            $this->model->closeConn();
+            $this->addDynamicProperty("u_info", $result[0]);
+            return "pwCorrection"._EXTENSION_PHP;
+            }else{
+                $this->addDynamicProperty("signUpFlg", true);
+                return "login"._EXTENSION_PHP;
+            }
+
+    }
+
+    public function pwCorrectionPost(){
+        $arrPost = $_POST;
+        $arrChkErr = [];
+        // PW 글자수 체크
+        if(mb_strlen($arrPost["u_pw"]) < 8 || mb_strlen($arrPost["u_pw"]) > 20){
+            $arrChkErr["u_pw"] = "비밀번호는 8~20글자로 입력해 주세요.";
+        }
+        if(mb_strlen($arrPost["u_pwc"]) < 8 || mb_strlen($arrPost["u_pwc"]) > 20){
+            $arrChkErr["u_pwc"] = "비밀번호는 8~20글자로 입력해 주세요.";
+        }
+        if(preg_match("/\s/u", $arrPost["u_pw"]) == true){
+            $arrChkErr["u_pwb"] = "공백을 제거해 주세요.";
+        }    
+        if(preg_match("/\s/u", $arrPost["u_pwc"]) == true){
+            $arrChkErr["u_pwcb"] = "공백을 제거해 주세요.";
+        }    
+        $result = $this->model->getUser($arrPost,false);
+        if($arrPost["u_pw"] !== $result[0]["u_pw"]){
+            $arrChkErr["pwChk1"] = "현재비밀번호가 일치하지 않습니다.";
+        }else{
+            if($arrPost["u_pw"] === $arrPost["u_pwc"]){
+                $arrChkErr["pwChk"] = "이전 비밀번호와 같습니다.";
+            }
+        }
+
+        if(!empty($arrChkErr)){
+            // 에러메세지 셋팅
+            $this->addDynamicProperty("arrChkErr", $arrChkErr);
+            $this->addDynamicProperty("u_info", $result[0]);
+            return "pwCorrection"._EXTENSION_PHP;
+        }
+
         $this->model->openConnBegin();
 
-        if(!$this->model->correctionUserInfo($arrPost)){
+        if(!$this->model->correctionUserPw($arrPost)){
             $this->model->rollBackConn();
-            echo "User correction ERROR";
+            $this->model->commitConn();
+            echo "User pwCorrection ERROR";
             exit();
         }
         $this->model->commitConn();
+        $this->addDynamicProperty("signUpFlg", true);
         $this->model->closeConn();
-        
-        
-        // return _BASE_REDIRECT."/user/logout";
+        $this->addDynamicProperty("u_info", $arrPost);
+        return "pwCorrection"._EXTENSION_PHP;
+
     }
 }

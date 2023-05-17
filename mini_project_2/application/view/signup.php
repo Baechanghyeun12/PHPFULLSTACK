@@ -59,7 +59,7 @@
     </form>
     <script src="/application/view/common.js"></script>
     <?php
-        if( isset($this->signUpFlg) ){
+        if(isset($this->signUpFlg)){
     ?>
         <script>
             alert('회원가입이 되었습니다.');

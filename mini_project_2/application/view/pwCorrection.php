@@ -15,38 +15,65 @@
                 echo $this->errMsg2;
             } ?>
         </span>
-    <form action="/user/correction" method="post">
+    <form action="/user/pwCorrection" method="post">
         <input type="hidden" name="u_no" value="<?php if(isset($this->u_info["u_no"])) {echo $this->u_info["u_no"];}else if(isset($this->u_info1["u_no"])){echo $this->u_info1["u_no"];} ?>">
         <div class="mb-3">
         <label for="id" class="form-label">ID</label>
         <input type="text" class="form-control" name="u_id" id="id" readonly value="<?php  if(isset($this->u_info["u_id"])) {echo $this->u_info["u_id"];}else if(isset($this->u_info1["u_id"])){echo $this->u_info1["u_id"];} ?>">
         </div>
         <span style="color: red;">
-            <?php if(isset($this->errMsg)) {
-                echo $this->errMsg;
+            <?php if(isset($this->arrChkErr["u_pw"])) {
+                echo $this->arrChkErr["u_pw"];
             } ?>
         </span>
-        <span id="errMsgId" style="color: red;">
-            <?php if(isset($this->arrChkErr["u_id"])) {
-                echo $this->arrChkErr["u_id"];
+        <span style="color: red;">
+            <?php if(isset($this->arrChkErr["u_pwb"])) {
+                echo $this->arrChkErr["u_pwb"];
             } ?>
         </span>
         <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" name="u_email" id="email" placeholder="비밀번호를 입력하세요." autocomplete="off" required value="<?php if(isset($this->u_info["u_email"])) {echo $this->u_info["u_email"];}else if(isset($this->u_info1["u_email"])){echo $this->u_info1["u_email"];} ?>">
+        <label for="u_pw" class="form-label">현재 비밀번호</label>
+        <input type="password" class="form-control" name="u_pw" id="u_pw" placeholder="현재 비밀번호를 입력하세요." autocomplete="off" required>
         </div>
-        <span>
-            <?php if(isset($this->arrChkErr["u_email"])) {
-                echo $this->arrChkErr["u_email"];
+        <span style="color: red;">
+            <?php if(isset($this->arrChkErr["pwChk1"])) {
+                echo $this->arrChkErr["pwChk1"];
+            } ?>
+        </span>
+        <span style="color: red;">
+            <?php if(isset($this->arrChkErr["u_pwc"])) {
+                echo $this->arrChkErr["u_pwc"];
+            } ?>
+        </span>
+        <span style="color: red;">
+            <?php if(isset($this->arrChkErr["u_pwcb"])) {
+                echo $this->arrChkErr["u_pwcb"];
+            } ?>
+        <div class="mb-3">
+        <label for="u_pwc" class="form-label">변경 비밀번호</label>
+        <input type="password" class="form-control" name="u_pwc" id="u_pwc" placeholder="변경할 비밀번호를 입력하세요." autocomplete="off" required>
+        </div>
+        </span>
+        <span style="color: red;">
+            <?php if(isset($this->arrChkErr["pwChk"])) {
+                echo $this->arrChkErr["pwChk"];
             } ?>
         </span>
         <br>
         <div >
             <button type="submit" >변경</button>
-            <button type="button" onclick="location.href='/user/pwCorrection'">비밀번호 변경</button>
             <button type="button" onclick="location.href='/user/myPage'">취 소</button>
         </div>
     </form>
-    <script src="/application/view/common.js"></script>
+    <?php
+        if(isset($this->signUpFlg)){
+    ?>
+        <script>
+            alert('비밀번호가 변경 되었습니다.');
+            location.href = '/user/logout';
+        </script>
+    <?php
+        }
+    ?>
 </body>
 </html>

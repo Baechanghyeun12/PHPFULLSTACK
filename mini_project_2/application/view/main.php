@@ -76,10 +76,10 @@
         <span class="visually-hidden">Next</span>
         </button>
     </div>
-    <div class="search">
-        <input type="text" placeholder="검색어 입력" class="input_search">
-        <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" class="img_search">
-    </div>
+        <div class="search">
+            <input type="text" id="searchApi" placeholder="검색어 입력" class="input_search">
+            <button type="button" onclick="movieSearch()"><img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" class="img_search"></button>
+        </div>
     <div class="container">
         <h2 class="h2_rank">영화 순위</h2>
         <div class="row row-cols-5">
@@ -175,7 +175,11 @@
             </div>
         </div>
     </div>
+    <ul id="api">
+        
+    </ul>
     <div class="mid_menu_wrap"><a href="#none" class="mid_itm" title=""><img src="https://caching.lottecinema.co.kr//Media/WebAdmin/3423e358b74d49d5b12867c7d9c6f6a8.png" alt="할인안내"></a><a href="#none" class="mid_itm" title=""><img src="https://caching.lottecinema.co.kr//Media/WebAdmin/16b056e5e6a04c609b94a5c21e786d3b.png" alt="포인트"></a><a href="#none" class="mid_itm" title=""><img src="https://caching.lottecinema.co.kr//Media/WebAdmin/9fd4a77cd6a44a39aa35d07e5bb8a010.png" alt="멤버십"></a><a href="#none" class="mid_itm" title=""><img src="https://caching.lottecinema.co.kr//Media/WebAdmin/3633088df0644062b53cd88b34067895.png" alt="틴틴클럽"></a><a href="#none" class="mid_itm" title=""><img src="https://caching.lottecinema.co.kr//Media/WebAdmin/9c4e2721ecdd488d86df6d27e3c2a000.png" alt="bravo 브라보클럽"></a></div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
+    <script src="/application/view/common.js"></script>
 </body>
 </html>

@@ -39,17 +39,26 @@ class UserModel extends Model{
                 ." u_id "
                 ." ,u_pw "
                 ." ,u_email "
+                ." ,u_name "
+                ." ,u_nickname "
+                ." ,u_tel "
                 .")"
                 ." VALUES ("
                 ." :u_id "
                 ." ,:u_pw "
                 ." ,:u_email "
+                ." ,:u_name "
+                ." ,:u_nickname "
+                ." ,:u_tel "
                 ." ) "
                 ;
         $prepare = [
             ":u_id" => $arrUserInfo["u_id"]
             ,":u_pw" => $arrUserInfo["u_pw"]
             ,":u_email" => $arrUserInfo["u_email"]
+            ,":u_name" => $arrUserInfo["u_name"]
+            ,":u_nickname" => $arrUserInfo["u_nickname"]
+            ,":u_tel" => $arrUserInfo["u_tel"]
         ];
         try {
             // $this->conn->begintransaction();
@@ -132,13 +141,16 @@ class UserModel extends Model{
 
     public function correctionUserInfo($arrUserInfo){
         $sql = " UPDATE user_info "
-                ." SET  u_email = :u_email "
+                ." SET  u_email = :u_email, u_name = :u_name, u_nickname = :u_nickname, u_tel = :u_tel "
                 ." WHERE u_no = :u_no "
                 ;
         
                 $prepare = [
                     ":u_email" => $arrUserInfo["u_email"]
                     ,":u_no" => $arrUserInfo["u_no"]
+                    ,":u_name" => $arrUserInfo["u_name"]
+                    ,":u_nickname" => $arrUserInfo["u_nickname"]
+                    ,":u_tel" => $arrUserInfo["u_tel"]
                 ];
                 try {
                     // $this->conn->begintransaction();
@@ -210,5 +222,32 @@ class UserModel extends Model{
                 // finally{
                 //     $this->closeConn();
                 // }
+    }
+
+    public function getUserEmail($arrUserInfo, $flg = true){
+        $sql = " SELECT * FROM user_info  ";
+        if($flg){
+            $sql .= " WHERE u_email = :u_email ";
+        } else {
+            $sql .=" WHERE u_nickname = :u_nickname";
+        }
+        $prepare = [];
+        if($flg){
+            $prepare[":u_email"] = $arrUserInfo["u_email"];
+        } else {
+            $prepare[":u_nickname"] = $arrUserInfo["u_nickname"];
+        }
+        try {
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute($prepare);
+            $result = $stmt->fetchAll();
+        } catch (Exception $e) {
+            echo "UserModel->getUser Error : ".$e->getMessage();
+            exit();
+        }
+        // finally{
+        //     $this->closeConn();
+        // }
+        return $result;
     }
 }

@@ -36,13 +36,20 @@ class UserController extends Controller {
     public function signUpPost(){
         $arrPost = $_POST;
         $arrChkErr = [];
+        $pw = $arrPost["u_pw"];
+        $patten = "/[^a-zA-Z0-9]/";
+        $num = preg_match('/[0-9]/u', $pw);
+        $eng = preg_match('/[a-z]/u', $pw);
+        $spe = preg_match("/[\!\@\#\$\%\^\&\*]/u",$pw);
+        $tel = preg_match('/^(010|011|016|017|018|019)-[0-9]{3,4}-[0-9]{4}/u',$_POST["u_tel"]);
+        // $email = preg_match('/^[a-zA-Z0-9]{1}[a-zA-Z0-9\-_]+@[a-z0-9]{1}[a-z0-9\-]+[a-z0-9]{1}\.(([a-z]{1}[a-z.]+[a-z]{1}[a-z]+)|([a-z]+))/u',$_POST["u_email"]);
+
         // 유효성체크(영문자랑 숫자도 체크해야된다.)
         // ID 글자수 체크
         if(mb_strlen($arrPost["u_id"]) > 12 || mb_strlen($arrPost["u_id"]) === 0){
             $arrChkErr["u_id"] = "ID는 12글자 이하로 입력해 주세요.";
         }
         // ID 영문숫자 체크 (이거는 한번 해보세요.)
-        $patten = "/[^a-zA-Z0-9]/";
         if(preg_match($patten, $arrPost["u_id"]) !==0){
             $arrChkErr["u_id"] = "ID는 영어 대문자, 영어 소문자, 숫자로만 입력해 주세요.";
             $arrPost["u_id"] = "";
@@ -53,14 +60,27 @@ class UserController extends Controller {
             $arrChkErr["u_pw"] = "비밀번호는 8~20글자로 입력해 주세요.";
         }
         // PW 영문숫자특수문자 체크 (이거는 한번 해보세요.)
-        
-        
-        
+        if( $num == 0 || $eng == 0 || $spe == 0){
+            $arrChkErr["u_pw1"] = "영문, 숫자, 특수문자를 혼합하여 입력해주세요.";
+        }
+        if( $tel == 0){
+            $arrChkErr["u_tel"] = "올바른 전화번호가 아닙니다. 다시 입력해 주세요.";
+        }
+        $result1 = $this->model->getUserEmail($arrPost);
+        if(count($result1) !== 0){
+            $arrChkErr["u_email1"] = "가입한 계정이 있습니다.";
+        }
+        $result2 = $this->model->getUserEmail($arrPost,false);
+        if(count($result2) !== 0){
+            $arrChkErr["u_nickname"] = "이미 존재하는 닉네임입니다.";
+        }
         // 비밀번호와 비밀번호체크 확인
         if($arrPost["u_pw"] !== $arrPost["pwChk"]){
             $arrChkErr["pwChk"] = "비밀번호와 비밀번호확인이 일치하지 않습니다.";
         }
-        
+        if( !preg_match('/^[a-zA-Z0-9]{1}[a-zA-Z0-9\-_]+@[a-z0-9]{1}[a-z0-9\-]+[a-z0-9]{1}\.(([a-z]{1}[a-z.]+[a-z]{1}[a-z]+)|([a-z]+))/u',$arrPost["u_email"]) ){
+            $arrChkErr["u_email2"] = "올바른 이메일이 아닙니다. 다시 입력해 주세요.";
+        }
         // NAME 글자수 체크
         if(mb_strlen($arrPost["u_email"]) > 30 || $arrPost["u_email"] === 0){
             $arrChkErr["u_email"] = "이메일은 30글자 이하로 입력해 주세요.";
@@ -70,6 +90,7 @@ class UserController extends Controller {
         if(!empty($arrChkErr)){
             // 에러메세지 셋팅
             $this->addDynamicProperty("arrChkErr", $arrChkErr);
+            $this->addDynamicProperty("u_info", $arrPost);
             return "signup"._EXTENSION_PHP;
         }
         
@@ -182,6 +203,7 @@ class UserController extends Controller {
     public function correctionPost(){
         $arrPost = $_POST;
         $arrChkErr = [];
+        $tel = preg_match('/^(010|011|016|017|018|019)-[0-9]{3,4}-[0-9]{4}/u',$_POST["u_tel"]);
         // 유효성체크(영문자랑 숫자도 체크해야된다.)
         // ID 글자수 체크
         if(mb_strlen($arrPost["u_id"]) > 12 || mb_strlen($arrPost["u_id"]) < 6){
@@ -193,7 +215,20 @@ class UserController extends Controller {
         if(mb_strlen($arrPost["u_email"]) > 30 || $arrPost["u_email"] === 0){
             $arrChkErr["u_email"] = "이메일은 30글자 이하로 입력해 주세요.";
         }
-        
+        if( $tel == 0){
+            $arrChkErr["u_tel"] = "올바른 전화번호가 아닙니다. 다시 입력해 주세요.";
+        }
+        $result1 = $this->model->getUserEmail($arrPost);
+        if(count($result1) !== 0){
+            $arrChkErr["u_email1"] = "가입한 계정이 있습니다.";
+        }
+        $result2 = $this->model->getUserEmail($arrPost,false);
+        if(count($result2) !== 0){
+            $arrChkErr["u_nickname"] = "이미 존재하는 닉네임입니다.";
+        }
+        if( !preg_match('/^[a-zA-Z0-9]{1}[a-zA-Z0-9\-_]+@[a-z0-9]{1}[a-z0-9\-]+[a-z0-9]{1}\.(([a-z]{1}[a-z.]+[a-z]{1}[a-z]+)|([a-z]+))/u',$arrPost["u_email"]) ){
+            $arrChkErr["u_email2"] = "올바른 이메일이 아닙니다. 다시 입력해 주세요.";
+        }
         // 유효성체크 에러일 경우
         if(!empty($arrChkErr)){
             // 에러메세지 셋팅
@@ -248,6 +283,11 @@ class UserController extends Controller {
     public function pwCorrectionPost(){
         $arrPost = $_POST;
         $arrChkErr = [];
+        $pw = $arrPost["u_pwc"];
+        $patten = "/[^a-zA-Z0-9]/";
+        $num = preg_match('/[0-9]/u', $pw);
+        $eng = preg_match('/[a-z]/u', $pw);
+        $spe = preg_match("/[\!\@\#\$\%\^\&\*]/u",$pw);
         // PW 글자수 체크
         if(mb_strlen($arrPost["u_pw"]) < 8 || mb_strlen($arrPost["u_pw"]) > 20){
             $arrChkErr["u_pw"] = "비밀번호는 8~20글자로 입력해 주세요.";
@@ -269,6 +309,10 @@ class UserController extends Controller {
                 $arrChkErr["pwChk"] = "이전 비밀번호와 같습니다.";
             }
         }
+        if( $num == 0 || $eng == 0 || $spe == 0)
+        {
+            $arrChkErr["u_pwc1"] = "영문, 숫자, 특수문자를 혼합하여 입력해주세요.";
+        }
 
         if(!empty($arrChkErr)){
             // 에러메세지 셋팅
@@ -289,7 +333,8 @@ class UserController extends Controller {
         $this->addDynamicProperty("signUpFlg", true);
         $this->model->closeConn();
         $this->addDynamicProperty("u_info", $arrPost);
-        return "pwCorrection"._EXTENSION_PHP;
+        echo "<script>alert('비밀번호가 변경 되었습니다.')</script>";
+            return _BASE_REDIRECT."/user/logout";
 
     }
 }

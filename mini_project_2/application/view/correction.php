@@ -32,12 +32,49 @@
             } ?>
         </span>
         <div class="mb-3">
+        <label for="u_name" class="form-label">이름</label>
+        <input type="text" class="form-control" name="u_name" id="u_name" placeholder="비밀번호를 입력하세요." autocomplete="off" required value="<?php if(isset($this->u_info["u_name"])) {echo $this->u_info["u_name"];}else if(isset($this->u_info1["u_name"])){echo $this->u_info1["u_name"];} ?>">
+        </div>
+        <span style="color: red;">
+            <?php if(isset($this->arrChkErr["u_name"])) {
+                echo $this->arrChkErr["u_name"];
+            } ?>
+        </span>
+        <div class="mb-3">
+        <label for="u_nickname" class="form-label">닉네임</label>
+        <input type="text" class="form-control" name="u_nickname" id="u_nickname" placeholder="비밀번호를 입력하세요." autocomplete="off" required value="<?php if(isset($this->u_info["u_nickname"])) {echo $this->u_info["u_nickname"];}else if(isset($this->u_info1["u_nickname"])){echo $this->u_info1["u_nickname"];} ?>">
+        </div>
+        <span style="color: red;">
+            <?php if(isset($this->arrChkErr["u_nickname"])) {
+                echo $this->arrChkErr["u_nickname"];
+            } ?>
+        </span>
+        <div class="mb-3">
+        <label for="u_tel" class="form-label">전화번호</label>
+        <input type="tel" class="form-control" name="u_tel" id="u_tel" placeholder="비밀번호를 입력하세요." autocomplete="off" required value="<?php if(isset($this->u_info["u_tel"])) {echo $this->u_info["u_tel"];}else if(isset($this->u_info1["u_tel"])){echo $this->u_info1["u_tel"];} ?>">
+        </div>
+        <span style="color: red;">
+            <?php if(isset($this->arrChkErr["u_tel"])) {
+                echo $this->arrChkErr["u_tel"];
+            } ?>
+        </span>
+        <div class="mb-3">
         <label for="email" class="form-label">Email</label>
         <input type="email" class="form-control" name="u_email" id="email" placeholder="비밀번호를 입력하세요." autocomplete="off" required value="<?php if(isset($this->u_info["u_email"])) {echo $this->u_info["u_email"];}else if(isset($this->u_info1["u_email"])){echo $this->u_info1["u_email"];} ?>">
         </div>
-        <span>
+        <span style="color: red;">
             <?php if(isset($this->arrChkErr["u_email"])) {
                 echo $this->arrChkErr["u_email"];
+            } ?>
+        </span>
+        <span style="color: red;">
+            <?php if(isset($this->arrChkErr["u_email1"])) {
+                echo $this->arrChkErr["u_email1"];
+            } ?>
+        </span>
+        <span style="color: red;">
+            <?php if(isset($this->arrChkErr["u_email2"])) {
+                echo $this->arrChkErr["u_email2"];
             } ?>
         </span>
         <br>

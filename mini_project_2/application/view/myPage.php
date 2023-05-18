@@ -12,6 +12,18 @@
     <?php if(isset($this->u_info["u_id"])){?>
         <p><?php echo $this->u_info["u_id"]?></p>
     <?php }?>
+    <h2>회원 이름</h2>
+    <?php if(isset($this->u_info["u_name"])){?>
+        <p><?php echo $this->u_info["u_name"]?></p>
+    <?php } ?>
+    <h2>회원 닉네임</h2>
+    <?php if(isset($this->u_info["u_nickname"])){?>
+        <p><?php echo $this->u_info["u_nickname"]?></p>
+    <?php } ?>
+    <h2>회원 전화번호</h2>
+    <?php if(isset($this->u_info["u_tel"])){?>
+        <p><?php echo $this->u_info["u_tel"]?></p>
+    <?php } ?>
     <h2>회원 Email</h2>
     <?php if(isset($this->u_info["u_email"])){?>
         <p><?php echo $this->u_info["u_email"]?></p>

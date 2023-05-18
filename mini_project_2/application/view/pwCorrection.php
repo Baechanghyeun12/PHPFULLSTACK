@@ -49,10 +49,15 @@
             <?php if(isset($this->arrChkErr["u_pwcb"])) {
                 echo $this->arrChkErr["u_pwcb"];
             } ?>
+        </span>
         <div class="mb-3">
         <label for="u_pwc" class="form-label">변경 비밀번호</label>
         <input type="password" class="form-control" name="u_pwc" id="u_pwc" placeholder="변경할 비밀번호를 입력하세요." autocomplete="off" required>
         </div>
+        <span style="color: red;">
+            <?php if(isset($this->arrChkErr["u_pwc1"])) {
+                echo $this->arrChkErr["u_pwc1"];
+            } ?>
         </span>
         <span style="color: red;">
             <?php if(isset($this->arrChkErr["pwChk"])) {
@@ -70,7 +75,6 @@
     ?>
         <script>
             alert('비밀번호가 변경 되었습니다.');
-            location.href = '/user/logout';
         </script>
     <?php
         }

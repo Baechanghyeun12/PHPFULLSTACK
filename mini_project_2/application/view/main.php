@@ -18,7 +18,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 margin_center">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">영화</a>
+                        <a class="nav-link active" aria-current="page" href="/user/movielist">영화</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="#">예매</a>
@@ -166,7 +166,8 @@
             </div>
             <div class="col">
                 <div class="card mt-4" style="width: 100%; border: none;">
-                    <p class="rank">10</p>
+    
+                <p class="rank">10</p>
                     <img src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202304/19723_103_1.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                     <h2 class="card-text">렌필드</h2>
@@ -175,9 +176,7 @@
             </div>
         </div>
     </div>
-    <ul id="api">
-        
-    </ul>
+    <div id="a"></div>
     <div class="mid_menu_wrap"><a href="#none" class="mid_itm" title=""><img src="https://caching.lottecinema.co.kr//Media/WebAdmin/3423e358b74d49d5b12867c7d9c6f6a8.png" alt="할인안내"></a><a href="#none" class="mid_itm" title=""><img src="https://caching.lottecinema.co.kr//Media/WebAdmin/16b056e5e6a04c609b94a5c21e786d3b.png" alt="포인트"></a><a href="#none" class="mid_itm" title=""><img src="https://caching.lottecinema.co.kr//Media/WebAdmin/9fd4a77cd6a44a39aa35d07e5bb8a010.png" alt="멤버십"></a><a href="#none" class="mid_itm" title=""><img src="https://caching.lottecinema.co.kr//Media/WebAdmin/3633088df0644062b53cd88b34067895.png" alt="틴틴클럽"></a><a href="#none" class="mid_itm" title=""><img src="https://caching.lottecinema.co.kr//Media/WebAdmin/9c4e2721ecdd488d86df6d27e3c2a000.png" alt="bravo 브라보클럽"></a></div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
     <script src="/application/view/common.js"></script>

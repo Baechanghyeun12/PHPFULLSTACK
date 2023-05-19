@@ -206,29 +206,40 @@ class UserController extends Controller {
         $tel = preg_match('/^(010|011|016|017|018|019)-[0-9]{3,4}-[0-9]{4}/u',$_POST["u_tel"]);
         // 유효성체크(영문자랑 숫자도 체크해야된다.)
         // ID 글자수 체크
-        if(mb_strlen($arrPost["u_id"]) > 12 || mb_strlen($arrPost["u_id"]) < 6){
-            $arrChkErr["u_id"] = "ID는 6글자 이상 12글자 이하로 입력해 주세요.";
-        }
-        // ID 영문숫자 체크 (이거는 한번 해보세요.)
-        
-        // NAME 글자수 체크
-        if(mb_strlen($arrPost["u_email"]) > 30 || $arrPost["u_email"] === 0){
-            $arrChkErr["u_email"] = "이메일은 30글자 이하로 입력해 주세요.";
-        }
-        if( $tel == 0){
-            $arrChkErr["u_tel"] = "올바른 전화번호가 아닙니다. 다시 입력해 주세요.";
-        }
-        $result1 = $this->model->getUserEmail($arrPost);
-        if(count($result1) !== 0){
-            $arrChkErr["u_email1"] = "가입한 계정이 있습니다.";
-        }
-        $result2 = $this->model->getUserEmail($arrPost,false);
-        if(count($result2) !== 0){
-            $arrChkErr["u_nickname"] = "이미 존재하는 닉네임입니다.";
-        }
-        if( !preg_match('/^[a-zA-Z0-9]{1}[a-zA-Z0-9\-_]+@[a-z0-9]{1}[a-z0-9\-]+[a-z0-9]{1}\.(([a-z]{1}[a-z.]+[a-z]{1}[a-z]+)|([a-z]+))/u',$arrPost["u_email"]) ){
-            $arrChkErr["u_email2"] = "올바른 이메일이 아닙니다. 다시 입력해 주세요.";
-        }
+        $result = $this->model->getUser($arrPost,false);
+            if(mb_strlen($arrPost["u_id"]) > 12 || mb_strlen($arrPost["u_id"]) < 6){
+                $arrChkErr["u_id"] = "ID는 6글자 이상 12글자 이하로 입력해 주세요.";
+            }
+            // ID 영문숫자 체크 (이거는 한번 해보세요.)
+            
+            // NAME 글자수 체크
+            if(mb_strlen($arrPost["u_email"]) > 30 || $arrPost["u_email"] === 0){
+                $arrChkErr["u_email"] = "이메일은 30글자 이하로 입력해 주세요.";
+            }
+            if( $tel == 0){
+                $arrChkErr["u_tel"] = "올바른 전화번호가 아닙니다. 다시 입력해 주세요.";
+            }
+            $result1 = $this->model->getUserEmail($arrPost);
+            $result2 = $this->model->getUserEmail($arrPost,false);
+            if($result[0]["u_email"] !== $arrPost["u_email"]){
+                if(count($result1) !== 0 ){
+                    $arrChkErr["u_email1"] = "가입한 계정이 있습니다.";
+                }
+            }
+            if($result[0]["u_nickname"] !== $arrPost["u_nickname"]){
+                if(count($result2) !== 0  ){
+                    $arrChkErr["u_nickname"] = "이미 존재하는 닉네임입니다.";
+                }
+            }
+            if( !preg_match('/^[a-zA-Z0-9]{1}[a-zA-Z0-9\-_]+@[a-z0-9]{1}[a-z0-9\-]+[a-z0-9]{1}\.(([a-z]{1}[a-z.]+[a-z]{1}[a-z]+)|([a-z]+))/u',$arrPost["u_email"]) ){
+                $arrChkErr["u_email2"] = "올바른 이메일이 아닙니다. 다시 입력해 주세요.";
+            }
+            if($result[0]["u_name"]===$arrPost["u_name"] && $result[0]["u_nickname"]===$arrPost["u_nickname"] && $result[0]["u_tel"]===$arrPost["u_tel"] && $result[0]["u_email"]===$arrPost["u_email"]){
+            $errMsg = "변경 사항이 없습니다.";
+            $this->addDynamicProperty("errMsg2", $errMsg);
+            $this->addDynamicProperty("u_info1", $arrPost);
+            return "correction"._EXTENSION_PHP;
+            }
         // 유효성체크 에러일 경우
         if(!empty($arrChkErr)){
             // 에러메세지 셋팅
@@ -243,14 +254,14 @@ class UserController extends Controller {
         //     $this->addDynamicProperty("errMsg", $errMsg);
             // 회원가입페이지 페이지
             // return _BASE_REDIRECT."/user/correction";
-        // }
-        $result1 = $this->model->getUserID($arrPost,false);
-        if( ($result1[0]["u_email"] === $arrPost["u_email"]) ){
-            $errMsg = "변경 사항이 없습니다.";
-            $this->addDynamicProperty("errMsg2", $errMsg);
-            $this->addDynamicProperty("u_info1", $arrPost);
-            return "correction"._EXTENSION_PHP;
-        }else {
+        // // }
+        // $result1 = $this->model->getUserID($arrPost,false);
+        // if( ($result1[0]["u_email"] === $arrPost["u_email"]) ){
+        //     $errMsg = "변경 사항이 없습니다.";
+        //     $this->addDynamicProperty("errMsg2", $errMsg);
+        //     $this->addDynamicProperty("u_info1", $arrPost);
+        //     return "correction"._EXTENSION_PHP;
+        // }else {
         // **********Teransaction start**********
             $this->model->openConnBegin();
 
@@ -263,7 +274,7 @@ class UserController extends Controller {
             $this->model->closeConn();
             $this->addDynamicProperty("u_info", $arrPost);
             return "myPage"._EXTENSION_PHP;
-        }
+        // }
     }
 
     public function pwCorrectionGet(){
@@ -336,5 +347,13 @@ class UserController extends Controller {
         echo "<script>alert('비밀번호가 변경 되었습니다.')</script>";
             return _BASE_REDIRECT."/user/logout";
 
+    }
+
+    public function movierankGet(){
+        return "movierank"._EXTENSION_PHP;
+    }
+    
+    public function movielistGet(){
+        return "movielist"._EXTENSION_PHP;
     }
 }

@@ -23,4 +23,17 @@ class ApiController extends Controller {
         echo $json;
         exit();
     }
+
+    public function movieInfoGet(){
+        return "movieInfo"._EXTENSION_PHP;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

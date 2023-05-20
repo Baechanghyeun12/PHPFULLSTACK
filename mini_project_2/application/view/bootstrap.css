@@ -80,4 +80,10 @@
     border-color: #bbb;
     box-shadow: 0 0 10px #bbb;
 }
-
+h1,h2,#search/* ,#movies */{
+    text-align: center;
+}
+a{
+    text-decoration: none;
+    color: black;
+}

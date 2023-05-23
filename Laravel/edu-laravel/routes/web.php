@@ -155,3 +155,33 @@ Route::get('/makesign', function() {
 Route::get('/sign', function() {
     return 'Sign!!';
 })->name('sign')->middleware('signed');
+
+
+
+// --------------------------
+// 컨트롤러
+// --------------------------
+// 커멘드로 컨트롤러 생성 : php artisan make:controller TestController
+use App\Http\Controllers\TestController;
+Route::get('/test', [TestController::class, 'index'])->name('tests.index');
+
+
+// 커멘드로 컨트롤러 생성 : php artisan make:controller TasksController --reource
+use App\Http\Controllers\TasksController;
+Route::resource('/tasks', TasksController::class);
+// GET|HEAD        tasks ....................................... tasks.index › TasksController@index  
+// POST            tasks ....................................... tasks.store › TasksController@store  
+// GET|HEAD        tasks/create ................................ tasks.create › TasksController@create  
+// GET|HEAD        tasks/{task} ................................ tasks.show › TasksController@show  
+// PUT|PATCH       tasks/{task} ................................ tasks.update › TasksController@update  
+// DELETE          tasks/{task} ................................ tasks.destroy › TasksController@destroy  
+// GET|HEAD        tasks/{task}/edit ........................... tasks.edit › TasksController@edit
+
+// 1. Tasks.edit 이동 가능하도록 구현해주세요.
+//      - 세그먼트 파라미터의 값은 999
+// 2. Tasks.store 이동 가능하도록 구현해주세요.
+//      - 유저가 입력한 데이터가 출력되도록 해주세요.
+//          ( id, pw )
+
+use App\Http\Controllers\BladeController;
+Route::get('/blade', [BladeController::class, 'index'])->name('blade.index');

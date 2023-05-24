@@ -166,7 +166,7 @@ use App\Http\Controllers\TestController;
 Route::get('/test', [TestController::class, 'index'])->name('tests.index');
 
 
-// 커멘드로 컨트롤러 생성 : php artisan make:controller TasksController --reource
+// 커멘드로 컨트롤러 생성 : php artisan make:controller TasksController --resource
 use App\Http\Controllers\TasksController;
 Route::resource('/tasks', TasksController::class);
 // GET|HEAD        tasks ....................................... tasks.index › TasksController@index  

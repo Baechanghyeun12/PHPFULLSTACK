@@ -34,3 +34,41 @@ div {
   padding: 20px;
   margin: 20px auto;
 }
+.discount{
+  background-color: rgb(0, 102, 255);
+  padding: 20px;
+  margin: 10px;
+  border-radius: 10px;
+  font-size: xx-large;
+}
+/* .startTransition{
+  opacity: 0;
+  transition: all 1s;
+}
+.endTransition{
+  opacity: 1;
+} */
+
+/* 등장 애니매이션(3개가 한세트) */
+.modalTransition-enter-from {
+  opacity: 0;
+}
+.modalTransition-enter-active {
+  transition: all 1s;
+}
+.modalTransition-enter-to {
+  opacity: 1;
+}
+
+/* 퇴장 애니매이션 */
+.modalTransition-leave-from {
+  /* opacity: 1; */
+  transform: translateX(0px);
+}
+.modalTransition-leave-active {
+  transition: all 2s;
+}
+.modalTransition-leave-to {
+  /* opacity: 0; */
+  transform: translateX(3000px);
+}

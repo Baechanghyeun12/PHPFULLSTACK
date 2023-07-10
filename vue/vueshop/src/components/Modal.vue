@@ -1,15 +1,19 @@
 <template>
   <div class="bg_black" v-if="modalFlg">
     <div class="bg_white">
-      <img :src="products[productNum].img" style="width: 200px" />
-      <h4 @click="$emit('openModal')">{{ products[productNum].name }}</h4>
-      <p>{{ products[productNum].content }}</p>
-      <p>{{ products[productNum].price * products[productNum].count }}</p>
+      <img :src="product[productNum].img" style="width: 200px" />
+      <h4 @click="$emit('openModal')">{{ product[productNum].name }}</h4>
+      <p>{{ product[productNum].content }}</p>
+      <p>{{ product[productNum].price * inputCount }}원</p>
       <p>{{ product.count }}</p>
-      <button>수량 증가</button><br />
-      <button>수량 감소</button>
-      <span>0</span><br />
-      <button @click="$emit('closeModal')">닫기</button>
+      <!-- <button @click="$emit('plus')">수량 증가</button><br />
+      <button @click="$emit('minus')">수량 감소</button>
+      <span>{{ product[productNum].count }}</span><br /> -->
+      <input type="text" v-model="inputCount">
+      <br>
+      <span>{{ inputCount }}개</span>
+      <br>
+      <button @click="$emit('closeModal'); inputCount = '';">닫기</button>
       <!-- 부모한테 메세지 보냄 $emit('closeModal'); -->
     </div>
   </div>
@@ -17,9 +21,20 @@
 <script>
 export default {
   name: "Modal",
+  data() {
+    return {inputCount: "",};
+  },
+  watch:{
+    inputCount(input) {
+      if(input > 10) {
+        alert('최대 10개만 구매할 수 있습니다.!!!!!!!!!!!!!!')
+        this.inputCount = "10";
+      }
+    }
+  },
   props: {
     modalFlg: Boolean,
-    products: Array,
+    product: Array,
     productNum: Number,
   },
 };

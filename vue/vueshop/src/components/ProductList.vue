@@ -11,7 +11,7 @@
 
   <div :style="styleB">싸!다!</div>
   <img :src="product.img" style="width: 200px" />
-  <h4 @click="$emit('openModal', 'productNum')">{{ product.name }}</h4>
+  <h4 @click="$emit('openModal')">{{ product.name }}</h4>
   <p>{{ product.content }}</p>
   <p>{{ product.price }}</p>
   <p>{{ product.count }}</p>

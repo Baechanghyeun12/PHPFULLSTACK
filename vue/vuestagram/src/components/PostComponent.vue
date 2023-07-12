@@ -1,18 +1,18 @@
 <template>
-    <div class="post" v-for="list in $store.state.boardData" :key="list">
-        <div class="post-img" :style="{ backgroundImage : `url(${list.img})`}" ></div>
-        <div class="post-content">
-            <p>{{ list.likes }} 좋아요</p>
-            <p><strong>{{ list.name }}</strong>{{ list.content }}</p>
-            <p>{{ list.created_at }}</p>
-        </div>
-    </div>
+	<div class="post" v-for="item in $store.state.boardData" :key="item">
+		<div class="post-img" :class="item.filter" :style="{backgroundImage : `url('${item.img}')`}"></div>
+		<div class="post-content">
+			<p>{{ item.likes }} 좋아요</p>
+			<p><strong>{{ item.name }}</strong> {{ item.content }}</p>
+			<p>{{ item.created_at }}</p>
+		</div>
+	</div>
 </template>
 <script>
 export default {
-    name: 'PostComponent',
+	name: 'PostComponent',
 }
 </script>
 <style>
-    
+	
 </style>
